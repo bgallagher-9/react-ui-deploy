@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import $ from 'jquery';
 
@@ -20,8 +19,12 @@ class App extends Component {
 
 
   queryForRecipes() {
+    const url = `/api/recipes?foodQuery=${this.state.liveQueryValue}&ingredientQuery=${this.state.filters.join()}`
+
+    console.log('url', url);
+
     $.ajax({
-      url: `/api/recipes?foodQuery={this.state.liveQueryValue}&ingredientQuery={this.state.filters.join()}`
+      url: url
     })
     .done((data) => {
       console.log('data!', data);
@@ -36,7 +39,7 @@ class App extends Component {
         }
       })
       this.setState({
-        recipe: fixedData
+        recipes: fixedData
       });
     });
   }
@@ -71,13 +74,14 @@ class App extends Component {
     if (evt.keyCode === 13) {
       const filterArray = this.state.filters.slice();
       filterArray.push(this.state.filterInputValues);
+      this.setState({
+        filters: filterArray,
+        filterInputValues: ''
+      }, () => {
+        this.queryForRecipes();
+      });
     }
-    this.setState({
-      filters: filterArray,
-      filterInputValues: ''
-    }, () => {
-      this.queryForRecipes();
-    });
+
   }
 
   handleFilterInputChange(evt) {
@@ -87,10 +91,11 @@ class App extends Component {
   }
 
   render() {
-    const items = this.state.recipes.map((recipes, 1) => {
-      return <li key={recipes + i}>
-        <img src={recipes.thumbnail} alt={recipes.title} />
-        {recipe.title}
+    const items = this.state.recipes.map((recipe, i) => {
+      return <li key={recipe.title + i}>
+        <img src={recipe.thumbnail} alt={recipe.title} />
+        {recipe.title}<br/>
+        {recipe.ingredients}
       </li>
     });
 
@@ -112,7 +117,7 @@ class App extends Component {
     }
 
     return (
-      <div className="recipe-puppy-searc">
+      <div className="recipe-puppy-search">
         <input
           onChange={(evt) => this.handleChange(evt)}
           onKeyUp={(evt) => this.handleKeyUp(evt)}
@@ -120,9 +125,9 @@ class App extends Component {
           />
         <button onClick={() => this.handleSearchClick()}>SEARCH</button>
       {filter}
-      <ol>
-        {items}
-      </ol>
+        <ol>
+          {items}
+        </ol>
       </div>
     );
   }

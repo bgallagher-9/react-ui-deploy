@@ -15,7 +15,9 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 // });
 
 app.get('/api/recipes', function(req, res) {
-  request(`http://www.recipepuppy.com/api/?q=${req.body.foodQuery}i=${req.body.ingredientQuery}`, function(err, resp, body) {
+  const url = `http://www.recipepuppy.com/api/?q=${req.query.foodQuery}&i=${req.query.ingredientQuery}`;
+  // console.log(req.query, 'url', url);
+  request(url, function(err, resp, body) {
     body = JSON.parse(body);
     res.send(body)
   });
