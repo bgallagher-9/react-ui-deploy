@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/bgallagher-9/react-ui-deploy#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.3",
+    "mongoose": "^4.9.9",
     "request": "^2.81.0"
   }
 }
