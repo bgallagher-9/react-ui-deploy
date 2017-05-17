@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import $ from 'jquery';
+
+
+
+
+
 
 class App extends Component {
+
+  // componentDidMount() {
+  //   $.ajax({
+  //     url: '/api/recipes'
+  //   })
+  //   .done((data) => {
+  //
+  //   });
+  // }
+
+  componentDidMount() {
+    $.ajax({
+      url: '/api/recipes'
+    })
+    .done((data) => {
+      console.log('data!', data);
+    });
+  }
+
+
   render() {
     return (
       <div className="App">
