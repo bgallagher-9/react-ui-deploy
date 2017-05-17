@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node server/server.js",
-  "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build"
-},
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bgallagher-9/react-ui-deploy.git"
