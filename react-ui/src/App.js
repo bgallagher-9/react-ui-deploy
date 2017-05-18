@@ -7,8 +7,8 @@ import SavedRecipes from './savedrecipes.js';
 
 
 class App extends Component {
-  render() {
 
+  render() {
     return (
       <Router>
         <div className="app">
@@ -17,7 +17,8 @@ class App extends Component {
             <Link to="/saved">Saved Recipes</Link>
           </nav>
           <Route path="/" exact component={RecipePuppySearch} />
-          <Route path="/saved" component={SavedRecipes} />
+          <Route path="/saved" component={SavedRecipes}
+            recipes={this.props.recipes}/>
         </div>
       </Router>
     );

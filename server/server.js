@@ -1,3 +1,4 @@
+
 const express = require('express');
 const path = require('path');
 const request = require('request');
@@ -10,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
+mongoose.Promise = global.Promise;
 // var mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27020/mongodata/recipetestdeploy';
 var mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27021/test';
 mongoose.connect(mongoURL);
@@ -30,7 +31,7 @@ app.get('/api/recipes', function(req, res) {
 
 app.post('/api/recipe', function(req, res) {
 
-  console.log('posting', req.body);
+  // console.log('posting', req.body);
 
   var recipe = new Recipe();
   recipe.name = req.body.title;
@@ -43,9 +44,10 @@ app.post('/api/recipe', function(req, res) {
 app.get('/api/savedrecipes', function(req, res) {
   Recipe.find({})
     .exec(function(err, data) {
+    //  console.log(arguments);
       res.send(data);
-    })
-})
+    });
+});
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {
