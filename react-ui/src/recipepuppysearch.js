@@ -62,23 +62,24 @@ class RecipePuppySearch extends Component {
     });
   }
 
+  handleFilterInputChange(evt) {
+    this.setState({
+      filterInputValues: evt.target.value
+    })
+  }
+
   handleFilterOnKeyUp(evt) {
     if (evt.keyCode === 13) {
       const filterArray = this.state.filters.slice();
       filterArray.push(this.state.filterInputValues);
       this.setState({
-        filters: filterArray,
-        filterInputValues: ''
+        filterInputValues: '',
+        filters: filterArray
       }, () => {
         this.queryForRecipes();
       });
+      console.log(this.state.filterInputValues)
     }
-  }
-
-  handleFilterInputChange(evt) {
-    this.setState({
-      filterInputValues: evt.target.value
-    })
   }
 
   handleRecipeClick(recipe) {
@@ -112,7 +113,6 @@ class RecipePuppySearch extends Component {
         <input
           onChange={(evt) => this.handleFilterInputChange(evt)}
           onKeyUp={(evt) => this.handleFilterOnKeyUp(evt)}
-
           value={this.state.filterInputValues}
           />
         <ol>

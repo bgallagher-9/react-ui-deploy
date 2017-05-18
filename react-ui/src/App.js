@@ -17,8 +17,7 @@ class App extends Component {
             <Link to="/saved">Saved Recipes</Link>
           </nav>
           <Route path="/" exact component={RecipePuppySearch} />
-          <Route path="/saved" component={SavedRecipes}
-            recipes={this.props.recipes}/>
+          <Route path="/saved" component={SavedRecipes} />
         </div>
       </Router>
     );
